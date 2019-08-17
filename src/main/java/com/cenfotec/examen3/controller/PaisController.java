@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cenfotec.examen3.domain.DivisionBiologica;
 import com.cenfotec.examen3.domain.DivisionPolitica;
 import com.cenfotec.examen3.domain.Pais;
 import com.cenfotec.examen3.repository.PaisRepository;
@@ -44,6 +45,11 @@ public class PaisController {
 	@GetMapping("/divisiones_politicas/{sigla}")
 	public List<DivisionPolitica> GetDivisionesPoliticasByPais(@PathVariable(value = "sigla") String nSigla) {
 		return repo.getProvincias(nSigla);
+	}
+
+	@GetMapping("/divisiones_biologicas/{sigla}")
+	public List<DivisionBiologica> GetDivisionesBiologicasByPais(@PathVariable(value = "sigla") String nSigla) {
+		return repo.getAreasBiologicas(nSigla);
 	}
 
 	@PutMapping
