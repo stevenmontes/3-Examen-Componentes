@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cenfotec.examen3.domain.DivisionBiologica;
@@ -30,7 +31,11 @@ public class DivisionBiologicaController {
 	}
 
 	@GetMapping
-	public List<DivisionBiologica> GetAll() {
+	public List<DivisionBiologica> GetAll(@RequestParam(value = "nombre", required = false) String nombre) {
+		if (nombre != null) {
+			return repo.findAllByNombreContaining(nombre);
+		}
+
 		return repo.findAll();
 	}
 
