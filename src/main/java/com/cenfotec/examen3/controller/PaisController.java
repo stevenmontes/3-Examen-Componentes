@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cenfotec.examen3.domain.DivisionPolitica;
 import com.cenfotec.examen3.domain.Pais;
 import com.cenfotec.examen3.repository.PaisRepository;
 
@@ -24,35 +25,40 @@ public class PaisController {
 
 	@Autowired
 	private PaisRepository repo;
-	
+
 	@PostMapping
 	public Pais Create(@Valid @RequestBody Pais nPais) {
 		return repo.save(nPais);
 	}
-	
+
 	@GetMapping
-	public List<Pais> GetAll(){
+	public List<Pais> GetAll() {
 		return repo.findAll();
 	}
-	
+
 	@GetMapping("/{sigla}")
-	public Optional<Pais> Get(@PathVariable(name = "sigla") String nSigla){
+	public Optional<Pais> Get(@PathVariable(value = "sigla") String nSigla) {
 		return repo.findById(nSigla);
 	}
-	
+
+	@GetMapping("/divisiones_politicas/{sigla}")
+	public List<DivisionPolitica> GetDivisionesPoliticasByPais(@PathVariable(value = "sigla") String nSigla) {
+		return repo.getProvincias(nSigla);
+	}
+
 	@PutMapping
 	public Pais Update(@Valid @RequestBody Pais nPais) {
 		return repo.save(nPais);
 	}
-	
+
 	@DeleteMapping("/{sigla}")
-	public Optional<Pais> Delete(@PathVariable(name = "sigla") String nSigla){
+	public Optional<Pais> Delete(@PathVariable(value = "sigla") String nSigla) {
 		Optional<Pais> nPais = repo.findById(nSigla);
-		
-		if(nPais != null) {
+
+		if (nPais != null) {
 			repo.deleteById(nSigla);
 		}
-		
+
 		return nPais;
 	}
 }
