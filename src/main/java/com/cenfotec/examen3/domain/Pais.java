@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -35,6 +36,9 @@ public class Pais {
 	@OneToMany(mappedBy = "Pais")
 	private List<DivisionBiologica> AreasBiologicas = new ArrayList<DivisionBiologica>();
 
+	@ManyToMany(mappedBy = "Paises")
+	private List<Animal> Animales = new ArrayList<Animal>();
+	
 	public Pais(String sigla, String nombre, int superficieTerrestre, int superficieMaritima, Continente nContinente) {
 		super();
 		Sigla = sigla;
